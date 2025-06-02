@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Depressiya Testi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .question {
+            display: none;
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .active-question {
+            display: block;
+        }
+        .question label {
+            display: block;
+            padding: 12px;
+            margin: 8px 0;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .navigation {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .navigation button {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            min-height: 44px;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            display: none;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+        @media screen and (max-width: 480px) {
+            body { padding: 10px; width: 100%; }
+            h1 { font-size: 20px; text-align: center; }
+            .navigation {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 10px;
+                background: white;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            }
+            #test { padding-bottom: 80px; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Depressiya Darajasi Testi</h1>
+    <div class="progress">Savol: <span id="currentQuestion">1</span>/10</div>
+    
+    <div id="test">
+        <div class="question">
+            <p>1. Sizni tushkunlik holatiga tushishingiz tez-tez bezovta qiladimi?</p>
+            <label><input type="radio" name="q1" value="0"> Yo'q</label>
+            <label><input type="radio" name="q1" value="1"> Ba'zan</label>
+            <label><input type="radio" name="q1" value="2"> Tez-tez</label>
+        </div>
+
+        <div class="question">
+            <p>2. Hayotdan zavqlanish hissini yo'qotganmisiz?</p>
+            <label><input type="radio" name="q2" value="0"> Yo'q</label>
+            <label><input type="radio" name="q2" value="1"> Qisman</label>
+            <label><input type="radio" name="q2" value="2"> Ha</label>
+        </div>
+
+        <div class="question">
+            <p>3. O'zingizni keraksiz his qilasizmi?</p>
+            <label><input type="radio" name="q3" value="0"> Yo'q</label>
+            <label><input type="radio" name="q3" value="1"> Ba'zan</label>
+            <label><input type="radio" name="q3" value="2"> Ko'pincha</label>
+        </div>
+
+        <div class="question">
+            <p>4. Uyqu bilan bog'liq muammolaringiz bormi?</p>
+            <label><input type="radio" name="q4" value="0"> Yo'q</label>
+            <label><input type="radio" name="q4" value="1"> Ba'zan</label>
+            <label><input type="radio" name="q4" value="2"> Har doim</label>
+        </div>
+
+        <div class="question">
+            <p>5. Ishtahangiz yo'qolganmi?</p>
+            <label><input type="radio" name="q5" value="0"> Yo'q</label>
+            <label><input type="radio" name="q5" value="1"> Ozgina</label>
+            <label><input type="radio" name="q5" value="2"> Butunlay</label>
+        </div>
+
+        <div class="question">
+            <p>6. Diqqatingizni jamlashda qiyinchilik sezyapsizmi?</p>
+            <label><input type="radio" name="q6" value="0"> Yo'q</label>
+            <label><input type="radio" name="q6" value="1"> Ba'zan</label>
+            <label><input type="radio" name="q6" value="2"> Tez-tez</label>
+        </div>
+
+        <div class="question">
+            <p>7. O'z-o'zingizni ayblaysizmi?</p>
+            <label><input type="radio" name="q7" value="0"> Yo'q</label>
+            <label><input type="radio" name="q7" value="1"> Ba'zan</label>
+            <label><input type="radio" name="q7" value="2"> Ko'pincha</label>
+        </div>
+
+        <div class="question">
+            <p>8. Hayotdan umidingiz yo'qolganmi?</p>
+            <label><input type="radio" name="q8" value="0"> Yo'q</label>
+            <label><input type="radio" name="q8" value="1"> Ba'zan</label>
+            <label><input type="radio" name="q8" value="2"> Ha</label>
+        </div>
+
+        <div class="question">
+            <p>9. Odamlar bilan muloqot qilishni xohlamaysizmi?</p>
+            <label><input type="radio" name="q9" value="0"> Yo'q</label>
+            <label><input type="radio" name="q9" value="1"> Ba'zan</label>
+            <label><input type="radio" name="q9" value="2"> Ko'pincha</label>
+        </div>
+
+        <div class="question">
+            <p>10. Doimiy charchoq his qilasizmi?</p>
+            <label><input type="radio" name="q10" value="0"> Yo'q</label>
+            <label><input type="radio" name="q10" value="1"> Ba'zan</label>
+            <label><input type="radio" name="q10" value="2"> Har doim</label>
+        </div>
+
+        <div class="navigation">
+            <button onclick="previousQuestion()" id="prevBtn" style="display:none">Oldingisi</button>
+            <button onclick="nextQuestion()" id="nextBtn">Keyingisi</button>
+        </div>
+    </div>
+
+    <div id="result" class="result"></div>
+
+    <script>
+        let currentQuestionIndex = 1;
+        const totalQuestions = 10;
+
+        function showQuestion(index) {
+            document.querySelectorAll('.question').forEach(q => q.classList.remove('active-question'));
+            document.querySelector(`div.question:nth-child(${index})`).classList.add('active-question');
+            document.getElementById('currentQuestion').textContent = index;
+            
+            document.getElementById('prevBtn').style.display = index === 1 ? 'none' : 'block';
+            document.getElementById('nextBtn').innerHTML = index === totalQuestions ? 'Natijani ko\'rish' : 'Keyingisi';
+        }
+
+        function nextQuestion() {
+            const currentQuestion = document.querySelector(`input[name="q${currentQuestionIndex}"]:checked`);
+            if (!currentQuestion) {
+                alert("Iltimos, savolga javob bering!");
+                return;
+            }
+
+            if (currentQuestionIndex === totalQuestions) {
+                calculateResult();
+                return;
+            }
+
+            currentQuestionIndex++;
+            showQuestion(currentQuestionIndex);
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 1) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+            }
+        }
+
+        function calculateResult() {
+            let total = 0;
+            for (let i = 1; i <= 10; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (!selected) {
+                    alert("Iltimos, barcha savollarga javob bering!");
+                    return;
+                }
+                total += parseInt(selected.value);
+            }
+
+            const resultDiv = document.getElementById("result");
+            let message = "";
+
+            if (total <= 6) {
+                message = "Depressiya belgilari yo'q. Ruhiy holatinigiz yaxshi!";
+            } else if (total <= 12) {
+                message = "Yengil depressiya belgilari mavjud. Ko'proq dam olish va yaqinlaringiz bilan suhbatlashish tavsiya etiladi.";
+            } else {
+                message = "Depressiya belgilari kuchli. Mutaxassis bilan maslahatlashishingiz tavsiya etiladi.";
+            }
+
+            resultDiv.innerHTML = `<h2>Natija:</h2><p>${message}</p>`;
+            resultDiv.style.display = "block";
+        }
+
+        // Initialize first question
+        showQuestion(1);
+    </script>
+</body>
+</html>
